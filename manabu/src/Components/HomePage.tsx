@@ -4,6 +4,7 @@ import Button from '@mui/material/Button';
 
 import '../App.css';
 import './Styles/HomePage.css';
+import { Link } from 'react-router-dom';
 
 function HomePage() {
     return (
@@ -15,11 +16,12 @@ function HomePage() {
                     </h1>
                     <p className='font'>
                         Manabu is a Japanese learning platform that allows you to practice learning hiragana, katakana, and kanji.
-                        
                     </p>
-                    <Button variant="outlined" color="secondary" className='abc-select'>
-                        Hiragana
-                    </Button>
+                    <Link to="/hiragana" style={{ textDecoration: 'none', color: 'inherit' }}>
+                        <Button variant="outlined" color="secondary" className='abc-select'>
+                            Hiragana
+                        </Button>    
+                    </Link>
                     <br></br>
                     <Button variant="outlined" color="secondary" className='abc-select'>
                         Katana

@@ -6,6 +6,7 @@ import './App.css'
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
 import HomePage from './Components/HomePage';
+import HiraganaLearn from './Components/Hiragana/HiraganaLearn';
 
 function App() {
 
@@ -14,6 +15,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/home" element={<HomePage />} />
+          <Route path="/hiragana" element={<HiraganaLearn />} />
           
           <Route path='/' element={<HomePage />} />
           <Route path="*" element={<HomePage />} />
