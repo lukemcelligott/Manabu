@@ -2,6 +2,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 
+import '../index.css';
 import '../App.css';
 import './Styles/HomePage.css';
 import { Link } from 'react-router-dom';
@@ -15,7 +16,7 @@ function HomePage() {
                         Manabu
                     </h1>
                     <p className='font'>
-                        Manabu is a Japanese learning platform that allows you to practice learning hiragana, katakana, and kanji.
+                        Manabu (<span className='japanese'>まなぶ</span>) is a Japanese learning platform that allows you to practice learning hiragana, katakana, and kanji.
                     </p>
                     <Link to="/hiragana" style={{ textDecoration: 'none', color: 'inherit' }}>
                         <Button variant="outlined" color="secondary" className='abc-select'>

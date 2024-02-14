@@ -4,8 +4,12 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import { Link } from 'react-router-dom';
-import { MenuItem, Select } from '@mui/material';
+import { MenuItem, Select, colors } from '@mui/material';
 import { SelectChangeEvent } from '@mui/material/Select';
+
+import SchoolIcon from '@mui/icons-material/School';
+import QuizIcon from '@mui/icons-material/Quiz';
+import EditIcon from '@mui/icons-material/Edit';
 
 import './Styles/NavDrawer.css';
 
@@ -39,17 +43,24 @@ function NavDrawer() {
                         </Link>
                     </ListItemText>
                     <ListItem>
-                        <Select className='alpha-select' labelId="demo-simple-select-label" id="demo-simple-select" value={alpha} onChange={handleChange}>
+                        <Select style={{ color: '#EEEEEE' }} className='alpha-select' labelId="demo-simple-select-label" id="demo-simple-select" value={alpha} onChange={handleChange} color="secondary">
                             <MenuItem value={10}>Hiragana</MenuItem>
                             <MenuItem value={20}>Katakana</MenuItem>
                             <MenuItem value={30}>Kanji</MenuItem>
                         </Select>
                     </ListItem>
-                    {['Learn', 'Quiz', 'Button 3'].map((text, index) => (
-                        <ListItem button key={text}>
-                            <ListItemText className='list-item' primary={text} />
-                        </ListItem>
-                    ))}
+                    <ListItem className='list-item'>
+                        <SchoolIcon></SchoolIcon>
+                        <ListItemText>Learn</ListItemText>
+                    </ListItem>
+                    <ListItem className='list-item'>
+                        <QuizIcon></QuizIcon>
+                        <ListItemText>Quiz</ListItemText>
+                    </ListItem>
+                    <ListItem className='list-item'>
+                        <EditIcon></EditIcon>
+                        <ListItemText>Practice</ListItemText>
+                    </ListItem>
                 </List>
             </Drawer>
         </>
