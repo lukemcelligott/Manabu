@@ -62,6 +62,7 @@ function NavDrawer() {
                         </Link>
                     </ListItemText>
                     <hr></hr>
+                    {/* alphabet select */}
                     <ListItem>
                         <ThemeProvider theme={theme}>
                             <Select style={{ color: '#EEEEEE', }} className='alpha-select' labelId="demo-simple-select-label" id="demo-simple-select" value={selectedOption} onChange={handleChange} color="primary">
@@ -71,14 +72,17 @@ function NavDrawer() {
                             </Select>
                         </ThemeProvider>
                     </ListItem>
-                    <ListItem className={`list-item ${isActive('/learn') ? 'active' : ''}`}>
+                    {/* Learn tab */}
+                    <ListItem component={Link} to={`/${selectedOption}/learn`} className={`list-item ${isActive('/learn') ? 'active' : ''}`}>
                         <SchoolIcon></SchoolIcon>
                         <ListItemText className='label'>Learn</ListItemText>
                     </ListItem>
-                    <ListItem className={`list-item ${isActive('/quiz') ? 'active' : ''}`}>
+                    {/* Quiz tab */}
+                    <ListItem component={Link} to={`/${selectedOption}/quiz`} className={`list-item ${isActive('/quiz') ? 'active' : ''}`}>
                         <QuizIcon></QuizIcon>
                         <ListItemText className='label'>Quiz</ListItemText>
                     </ListItem>
+                    {/* Practice tab */}
                     <ListItem className={`list-item ${isActive('/practice') ? 'active' : ''}`}>
                         <EditIcon></EditIcon>
                         <ListItemText className='label'>Practice</ListItemText>
