@@ -7,26 +7,26 @@ import TableRow from '@mui/material/TableRow';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { Paper } from '@mui/material';
 
+const darkTheme = createTheme({
+    palette: {
+        mode: 'dark',
+        background: {
+            paper: '#393e46',
+        }
+    },
+});
+
 import NavDrawer from "../NavDrawer";
 
 import '../Styles/Alpha.css';
 
-const darkTheme = createTheme({
-  palette: {
-    mode: 'dark',
-    background: {
-        paper: '#393e46',
-    }
-  },
-});
-
-function HiraganaLearn() {
+function KatakanaLearn() {
 
     return (
         <div style={{ display: 'flex', maxWidth: '100vw', overflow: 'hidden' }}>
             <NavDrawer />
             <div style={{ flex: 1, overflowX: 'auto', margin: '0 1%' }}>
-                <h2 className="title">Hiragana</h2>
+                <h2 className="title">Katakana</h2>
                 {/* Table of Hiragana characters */}
                 <ThemeProvider theme={darkTheme}>
                 <TableContainer component={Paper} className='hiragana-table'>
@@ -87,18 +87,18 @@ function HiraganaLearn() {
                                 <TableCell align="center">mo も</TableCell>
                             </TableRow>
                             <TableRow>
-                                <TableCell align="center">ra ら</TableCell>
-                                <TableCell align="center">ri り</TableCell>
-                                <TableCell align="center">ru る</TableCell>
-                                <TableCell align="center">re れ</TableCell>
-                                <TableCell align="center">ro ろ</TableCell>
-                            </TableRow>
-                            <TableRow>
                                 <TableCell align="center">ya や</TableCell>
                                 <TableCell align="center"></TableCell>
                                 <TableCell align="center">yu ゆ</TableCell>
                                 <TableCell align="center"></TableCell>
                                 <TableCell align="center">yo よ</TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell align="center">ra ら</TableCell>
+                                <TableCell align="center">ri り</TableCell>
+                                <TableCell align="center">ru る</TableCell>
+                                <TableCell align="center">re れ</TableCell>
+                                <TableCell align="center">ro ろ</TableCell>
                             </TableRow>
                             <TableRow>
                                 <TableCell align="center">wa わ</TableCell>
@@ -119,4 +119,4 @@ function HiraganaLearn() {
     )
 }
 
-export default HiraganaLearn;
+export default KatakanaLearn;

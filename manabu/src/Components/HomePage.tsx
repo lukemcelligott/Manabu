@@ -28,9 +28,11 @@ function HomePage() {
                         </Button>    
                     </Link>
                     <br></br>
-                    <Button variant="outlined" color="secondary" className='abc-select' onClick={() => setSelectedOption('katakana')}>
-                        Katana
-                    </Button>
+                    <Link to="/katakana/learn" style={{ textDecoration: 'none', color: 'inherit' }}>
+                        <Button variant="outlined" color="secondary" className='abc-select' onClick={() => setSelectedOption('katakana')}>
+                            Katakana
+                        </Button>
+                    </Link>
                     <br></br>
                     <Button variant="outlined" color="secondary" className='abc-select' onClick={() => setSelectedOption('kanji')}>
                         Kanji
