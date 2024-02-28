@@ -107,34 +107,41 @@ import React from 'react';
 //   isActive: (pathname: string) => boolean;
 // }
 
+const theme = createTheme({
+    palette: {
+      primary: {
+        main: '#f96d00',
+      },
+    },
+  });
+
 function NavDrawer() {
     const { selectedOption, setSelectedOption } = useSelectedOption();
 
     const navigate = useNavigate();
 
     const handleChange = (event: { target: { value: any; }; }) => {
-                const selectedOption = event.target.value;
-                setSelectedOption(selectedOption);
-                // Redirect user to the corresponding page based on the selected option
-                navigate(`/${selectedOption}/learn`);
-            };
+        const selectedOption = event.target.value;
+        setSelectedOption(selectedOption);
+        // Redirect user to the corresponding page based on the selected option
+        navigate(`/${selectedOption}/learn`);
+    };
 
-            // check for active path
+    // check for active path
     const location = useLocation();
     const isActive = (pathname: string) => location.pathname.includes(pathname);
-  const theme = useTheme();
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
 
-  return (
+    return (
     <>
         <Hidden smDown>
             <Drawer

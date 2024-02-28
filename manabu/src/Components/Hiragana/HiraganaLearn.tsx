@@ -341,6 +341,10 @@ function HiraganaLearn() {
                 <h2 className="title">Hiragana</h2>
 
                 <ThemeProvider theme={darkTheme}>
+                    <Card className='summary'>
+                        <CardContent className='card-text'>Hiragana is the main writing style used in Japanese.</CardContent>
+                    </Card>
+
                     <Grid container spacing={1}>
                         {cards.map((card) => (
                             <Grid item xs={card.id <= 40 ? 2.4 : (card.id > 40 && card.id <= 43) ? 4 : (card.id >= 44 && card.id <= 45) ? 6 : (card.id >= 46) ? 12 : 12} key={card.id} onClick={() => handleOpenModal(card)}>
