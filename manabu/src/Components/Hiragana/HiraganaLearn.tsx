@@ -23,7 +23,7 @@ const style = {
     transform: 'translate(-50%, -50%)',
     width: 400,
     bgcolor: 'background.paper',
-    border: '2px solid #000',
+    border: '2px solid #393E46',
     boxShadow: 24,
     p: 4,
 };
@@ -342,7 +342,7 @@ function HiraganaLearn() {
 
                 <ThemeProvider theme={darkTheme}>
                     <Card className='summary'>
-                        <CardContent className='card-text'>Hiragana is the main writing style used in Japanese.</CardContent>
+                        <CardContent className='card-text'>Hiragana is the main writing style used in Japanese. Hiragana is primarily used for native Japanese words. Starting with Hiragana provides a foundation for learning the Japanese language.</CardContent>
                     </Card>
 
                     <Grid container spacing={1}>
