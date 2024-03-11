@@ -185,7 +185,7 @@ function NavDrawer() {
                         <ListItemText className='label'>Quiz</ListItemText>
                     </ListItem>
                     {/* Practice tab */}
-                    <ListItem className={`list-item ${isActive('/practice') ? 'active' : ''}`}>
+                    <ListItem component={Link} to={`/${selectedOption}/practice`} className={`list-item ${isActive('/practice') ? 'active' : ''}`}>
                         <EditIcon></EditIcon>
                         <ListItemText className='label'>Practice</ListItemText>
                     </ListItem>

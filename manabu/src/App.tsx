@@ -8,6 +8,7 @@ import HomePage from './Components/HomePage';
 
 import HiraganaLearn from './Components/Hiragana/HiraganaLearn';
 import HiraganaQuiz from './Components/Hiragana/HiraganaQuiz';
+import HiraganaPractice from './Components/Hiragana/HiraganaPractice';
 
 import KatakanaLearn from './Components/Katakana/KatakanaLearn';
 import KatakanaQuiz from './Components/Katakana/KatakanaQuiz';
@@ -23,6 +24,7 @@ function App() {
           
           <Route path="/hiragana/learn" element={<HiraganaLearn />} />
           <Route path="/hiragana/quiz" element={<HiraganaQuiz />} />
+          <Route path="/hiragana/practice" element={<HiraganaPractice />} />
 
           <Route path="/katakana/learn" element={<KatakanaLearn />} />
           <Route path="/katakana/quiz" element={<KatakanaQuiz />} />
