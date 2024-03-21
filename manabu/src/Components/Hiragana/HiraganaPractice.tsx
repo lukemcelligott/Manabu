@@ -1,13 +1,13 @@
 import React from 'react';
-import { SetStateAction, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import { Button, Grid } from '@mui/material';
+import { Grid } from '@mui/material';
 import { ThemeProvider, createTheme } from '@mui/material';
-import { FormControl, FormControlLabel } from '@mui/material';
-import { RadioGroup, Radio } from '@mui/material';
 
 import NavDrawer from '../NavDrawer';
+
+import hiraganaData from '../../assets/hiraganaData.json';
 
 import '../Styles/Alpha.css';
 
@@ -23,138 +23,69 @@ const theme = createTheme({
     },
 });
 
-interface HiraganaCard {
-    hiragana: string;
-    pronunciation: string;
-}
-
 function HiraganaPractice() {
-    const cards: HiraganaCard[] = [
-        { hiragana: 'あ', pronunciation: 'a'},
-        { hiragana: 'い', pronunciation: 'i'},
-        { hiragana: 'う', pronunciation: 'u'},
-        { hiragana: 'え', pronunciation: 'e'},
-        { hiragana: 'お', pronunciation: 'o'},
-        { hiragana: 'か', pronunciation: 'ka'},
-        { hiragana: 'き', pronunciation: 'ki'},
-        { hiragana: 'く', pronunciation: 'ku'},
-        { hiragana: 'け', pronunciation: 'ke'},
-        { hiragana: 'こ', pronunciation: 'ko'},
-        { hiragana: 'さ', pronunciation: 'sa'},
-        { hiragana: 'し', pronunciation: 'shi'},
-        { hiragana: 'す', pronunciation: 'su'},
-        { hiragana: 'せ', pronunciation: 'se'},
-        { hiragana: 'そ', pronunciation: 'so'},
-        { hiragana: 'た', pronunciation: 'ta'},
-        { hiragana: 'ち', pronunciation: 'chi'},
-        { hiragana: 'つ', pronunciation: 'tsu'},
-        { hiragana: 'て', pronunciation: 'te'},
-        { hiragana: 'と', pronunciation: 'to'},
-        { hiragana: 'な', pronunciation: 'na'},
-        { hiragana: 'に', pronunciation: 'ni'},
-        { hiragana: 'ぬ', pronunciation: 'nu'},
-        { hiragana: 'ね', pronunciation: 'ne'},
-        { hiragana: 'の', pronunciation: 'no'},
-        { hiragana: 'は', pronunciation: 'ha'},
-        { hiragana: 'ひ', pronunciation: 'hi'},
-        { hiragana: 'ふ', pronunciation: 'fu'},
-        { hiragana: 'へ', pronunciation: 'he'},
-        { hiragana: 'ほ', pronunciation: 'ho'},
-        { hiragana: 'ま', pronunciation: 'ma'},
-        { hiragana: 'み', pronunciation: 'mi'},
-        { hiragana: 'む', pronunciation: 'mu'},
-        { hiragana: 'め', pronunciation: 'me'},
-        { hiragana: 'も', pronunciation: 'mo'},
-        { hiragana: 'や', pronunciation: 'ya'},
-        { hiragana: 'ゆ', pronunciation: 'yu'},
-        { hiragana: 'よ', pronunciation: 'yo'},
-        { hiragana: 'ら', pronunciation: 'ra'},
-        { hiragana: 'り', pronunciation: 'ri'},
-        { hiragana: 'る', pronunciation: 'ru'},
-        { hiragana: 'れ', pronunciation: 're'},
-        { hiragana: 'ろ', pronunciation: 'ro'},
-        { hiragana: 'わ', pronunciation: 'wa'},
-        { hiragana: 'を', pronunciation: 'wo'},
-        { hiragana: 'ん', pronunciation: 'n'},
-    ];
+    const [ , setSelectedPairs] = useState<{ id: number; hiragana: string; pronunciation: string; }[]>([]);
+    const [selectedCardId, setSelectedCardId] = useState<number | null>(null);
 
-    const [shuffledPairs, setShuffledPairs] = useState<HiraganaCard[]>([]);
+    const pronunciationData = hiraganaData.map(hiragana => ({
+        id: hiragana.id + hiraganaData.length, // Assign unique IDs for pronunciation cards
+        hiragana: hiragana.hiragana,
+        pronunciation: hiragana.pronunciation,
+    }));
 
-    // Function to shuffle an array
-    const shuffleArray = (array: any[]) => {
-        const shuffledArray = [...array];
-        for (let i = shuffledArray.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
-        }
-        return shuffledArray;
-    };
-
-    // Shuffle the pairs when component mounts
     useEffect(() => {
-        setShuffledPairs(shuffleArray(cards));
+        // Select 12 random pairs from the hiragana data
+        const shuffledData = hiraganaData.sort(() => Math.random() - 0.5);
+        const selectedPairs = shuffledData.slice(0, 12);
+        setSelectedPairs(selectedPairs.concat(selectedPairs)); // Duplicate pairs for matching
     }, []);
 
+    const handleCardClick = (id: number) => {
+        const cardElement = document.getElementById(`card-${id}`); // Assuming the card element has an id like "card-1", "card-2", etc.
+        if (cardElement) {
+            cardElement.classList.toggle('clicked');
+        }
+
+        if (selectedCardId === null) {
+            // First card clicked, set it as the selected card
+            setSelectedCardId(id);
+        } else {
+            // Second card clicked, check for a match
+            const isFirstCardHiragana = selectedCardId <= hiraganaData.length;
+            const isSecondCardHiragana = id <= hiraganaData.length;
     
-    const [selectedIndices, setSelectedIndices] = useState<number[]>([]);
-    const [matchedIndices, setMatchedIndices] = useState<number[]>([]);
-    const [firstCardIndex, setFirstCardIndex] = useState<number | null>(null);
-    const [secondCardIndex, setSecondCardIndex] = useState<number | null>(null);
-    const [selectedHiraganaIndex, setSelectedHiraganaIndex] = useState(-1);
-    const [selectedPronunciationIndex, setSelectedPronunciationIndex] = useState(null);
-    const [matchedPairs, setMatchedPairs] = useState<number[]>([]);
-
-    const handleCardClick = (index: number, type: String) => {
-        if (type === 'hiragana') {
-            setSelectedHiraganaIndex(index);
-        } else if (type === 'pronunciation' && selectedHiraganaIndex !== null) {
-            const hiraganaPairIndex = selectedHiraganaIndex % 100;
-            if (hiraganaPairIndex === index) {
-                // Correct match
-                // Mark both cards as green
-                console.log("match");
-                // setMatchedPairs(prevState => {
-                //     const updatedPairs = [...prevState];
-                //     return updatedPairs;
-                // });
-                setMatchedPairs([...matchedPairs, index]);
-                console.log(matchedPairs);
-            } else {
-                // Incorrect match
-                // Mark both cards as red
-                console.log("wrong");
-                setMatchedPairs([...matchedPairs, index]);
-                // setMatchedPairs(prevState => {
-                //     const updatedPairs = [...prevState];
-                //     return updatedPairs;
-                // });
+            if (isFirstCardHiragana !== isSecondCardHiragana) { 
+                // Check if the two cards have the same hiragana/pronunciation pair
+                const isFirstCardHiraganaId = isFirstCardHiragana ? selectedCardId : selectedCardId - hiraganaData.length;
+                const isSecondCardHiraganaId = isSecondCardHiragana ? id : id - hiraganaData.length;
+    
+                if (isFirstCardHiraganaId === isSecondCardHiraganaId) { // match
+                    // Match found
+                    const clickedElements = document.querySelectorAll('.clicked');
+                    clickedElements.forEach(element => {
+                        element.classList.add('match');
+                        element.classList.remove('clicked');
+                        console.log("hit");
+                    });
+                } else { // no match
+                    // No match, reset selected card
+                    const clickedElements = document.querySelectorAll('.clicked');
+                    // remove click and shake
+                    clickedElements.forEach(element => {
+                        if (cardElement) {
+                            element.classList.add('shake');
+                            setTimeout(() => {
+                                element.classList.remove('shake');
+                            }, 500);
+                        }
+                        element.classList.remove('clicked');
+                    });
+                }
             }
-            // Reset selected cards
-            setSelectedHiraganaIndex(-1);
-            setSelectedPronunciationIndex(null);
+            // Reset selected card
+            setSelectedCardId(null);
         }
     };
-
-    const isMatched = (index: number) => {
-        let matched : boolean;
-        if(index){
-           matched = matchedPairs.includes(matchedPairs[index]);
-           return matched;
-        }
-        return false;
-    };
-
-    useEffect(() => {
-        // Check if there are any newly matched pairs
-        if (matchedIndices.length > 0) {
-            // Reset selected indices after a delay
-            setTimeout(() => {
-                setSelectedIndices([]);
-                setFirstCardIndex(null);
-                setSecondCardIndex(null);
-            }, 1000);
-        }
-    }, [matchedIndices]);
 
     return (
         <div style={{ display: 'flex', maxWidth: '100vw', overflow: 'hidden', }}>
@@ -164,27 +95,22 @@ function HiraganaPractice() {
                     <h2 className="title">Hiragana</h2>
 
                     <div className="card-grid">
-
-                    <Grid container spacing={2}>
-        {shuffledPairs.slice(0, 12).map((pair, index) => (
-            <React.Fragment key={index}>
-                <Grid item xs={3} sm={3} md={2} lg={2}>
-                    <Card onClick={() => handleCardClick(index, 'hiragana')} style={{ backgroundColor: isMatched(index) ? 'green' : 'black' }}>
-                        <CardContent className='card-text content-color'>
-                            <div>{pair.hiragana}</div>
-                        </CardContent>
-                    </Card>
-                </Grid>
-                <Grid item xs={3} sm={3} md={2} lg={2}>
-                    <Card onClick={() => handleCardClick(index, 'pronunciation')} style={{ backgroundColor: isMatched(index) ? 'green' : 'black' }}>
-                        <CardContent className='card-text content-color'>
-                            <div>{pair.pronunciation}</div>
-                        </CardContent>
-                    </Card>
-                </Grid>
-            </React.Fragment>
-        ))}
-    </Grid>
+                        <Grid container spacing={1}>
+                            {hiraganaData.slice(0, 12).map((card, index) => (
+                                <React.Fragment key={card.id}>
+                                    <Grid item xs={3} sm={3} md={2} lg={2} onClick={() => handleCardClick(card.id)}>
+                                        <Card id={`card-${card.id}`} className='char-card' style={{ height: '10vw', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                            <CardContent className='matching-text'>{card.hiragana}</CardContent>
+                                        </Card>
+                                    </Grid>
+                                    <Grid item xs={3} sm={3} md={2} lg={2} onClick={() => handleCardClick(card.id + hiraganaData.length)}>
+                                        <Card id={`card-${card.id + hiraganaData.length}`} className='char-card' style={{ height: '10vw', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                            <CardContent className='matching-text'>{pronunciationData[index].pronunciation}</CardContent>
+                                        </Card>
+                                    </Grid>
+                                </React.Fragment>
+                            ))}
+                        </Grid>
                     </div>
                 </div>
             </ThemeProvider>

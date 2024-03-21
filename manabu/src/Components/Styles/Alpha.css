@@ -1,3 +1,25 @@
+@keyframes shake {
+    0% {
+      transform: translateX(0);
+    }
+    25% {
+      transform: translateX(-3px);
+    }
+    50% {
+      transform: translateX(3px);
+    }
+    75% {
+      transform: translateX(-3px);
+    }
+    100% {
+      transform: translateX(0);
+    }
+}
+
+.shake {
+    animation: shake 0.5s ease-in-out;
+}
+
 .card-text {
     text-align: center;
 }
@@ -6,12 +28,42 @@
     height: 95%;
 }
 
+.clicked {
+    padding: 20px;
+    border: 2px solid #EEEEEE;
+    box-sizing: border-box;
+}
+
+.char-card.fail {
+    padding: 20px;
+    border: 2px solid #D22B2B;
+    box-sizing: border-box;
+}
+
+.char-card.match {
+    padding: 20px;
+    border: 2px solid #008000;
+    box-sizing: border-box;
+}
+
+.char-card.match {
+    padding: 20px;
+    border: 2px solid #008000;
+    box-sizing: border-box;
+}
+
 .content-color {
     color: #EEEEEE;
 }
 
 .hiragana-table {
     /*margin-left: 15%;*/
+}
+
+.matching-text {
+    text-align: center;
+    color: #EEEEEE;
+    font-size: x-large;
 }
 
 .summary {

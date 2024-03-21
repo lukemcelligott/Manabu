@@ -9,6 +9,8 @@ import { RadioGroup, Radio } from '@mui/material';
 
 import NavDrawer from '../NavDrawer';
 
+import hiraganaData from '../../assets/hiraganaData.json';
+
 import '../Styles/Alpha.css';
 
 const theme = createTheme({
@@ -19,63 +21,7 @@ const theme = createTheme({
     },
 });
 
-interface QuizDataItem {
-    hiragana: string;
-    pronunciation: string;
-    options: string[];
-}
-
-// quiz Q & As
-const quizData : QuizDataItem[] = [
-    { hiragana: 'あ', pronunciation: 'a', options: ['a', 'i', 'u', 'e', 'o'] },
-    { hiragana: 'い', pronunciation: 'i', options: ['i', 'e', 'u', 'a', 'o'] },
-    { hiragana: 'う', pronunciation: 'u', options: ['u', 'a', 'i', 'e', 'o'] },
-    { hiragana: 'え', pronunciation: 'e', options: ['e', 'o', 'a', 'i', 'u'] },
-    { hiragana: 'お', pronunciation: 'o', options: ['o', 'u', 'a', 'i', 'e'] },
-    { hiragana: 'か', pronunciation: 'ka', options: ['ka', 'ki', 'ku', 'ke', 'ko'] },
-    { hiragana: 'き', pronunciation: 'ki', options: ['ki', 'ke', 'ko', 'ka', 'ku'] },
-    { hiragana: 'く', pronunciation: 'ku', options: ['ku', 'ka', 'ke', 'ki', 'ko'] },
-    { hiragana: 'け', pronunciation: 'ke', options: ['ke', 'ko', 'ki', 'ka', 'ku'] },
-    { hiragana: 'こ', pronunciation: 'ko', options: ['ko', 'ku', 'ke', 'ki', 'ka'] },
-    { hiragana: 'さ', pronunciation: 'sa', options: ['sa', 'shi', 'su', 'se', 'so'] },
-    { hiragana: 'し', pronunciation: 'shi', options: ['shi', 'su', 'se', 'so', 'sa'] },
-    { hiragana: 'す', pronunciation: 'su', options: ['su', 'se', 'so', 'sa', 'shi'] },
-    { hiragana: 'せ', pronunciation: 'se', options: ['se', 'so', 'sa', 'shi', 'su'] },
-    { hiragana: 'そ', pronunciation: 'so', options: ['so', 'sa', 'shi', 'su', 'se'] },
-    { hiragana: 'た', pronunciation: 'ta', options: ['ta', 'chi', 'tsu', 'te', 'to'] },
-    { hiragana: 'ち', pronunciation: 'chi', options: ['chi', 'tsu', 'te', 'to', 'ta'] },
-    { hiragana: 'つ', pronunciation: 'tsu', options: ['tsu', 'te', 'to', 'ta', 'chi'] },
-    { hiragana: 'て', pronunciation: 'te', options: ['te', 'to', 'ta', 'chi', 'tsu'] },
-    { hiragana: 'と', pronunciation: 'to', options: ['to', 'ta', 'chi', 'tsu', 'te'] },
-    { hiragana: 'な', pronunciation: 'na', options: ['na', 'ni', 'nu', 'ne', 'no'] },
-    { hiragana: 'に', pronunciation: 'ni', options: ['ni', 'nu', 'ne', 'no', 'na'] },
-    { hiragana: 'ぬ', pronunciation: 'nu', options: ['nu', 'ne', 'no', 'na', 'ni'] },
-    { hiragana: 'ね', pronunciation: 'ne', options: ['ne', 'no', 'na', 'ni', 'nu'] },
-    { hiragana: 'の', pronunciation: 'no', options: ['no', 'na', 'ni', 'nu', 'ne'] },
-    { hiragana: 'は', pronunciation: 'ha', options: ['ha', 'hi', 'fu', 'he', 'ho'] },
-    { hiragana: 'ひ', pronunciation: 'hi', options: ['hi', 'fu', 'he', 'ho', 'ha'] },
-    { hiragana: 'ふ', pronunciation: 'fu', options: ['fu', 'he', 'ho', 'ha', 'hi'] },
-    { hiragana: 'へ', pronunciation: 'he', options: ['he', 'ho', 'ha', 'hi', 'fu'] },
-    { hiragana: 'ほ', pronunciation: 'ho', options: ['ho', 'ha', 'hi', 'fu', 'he'] },
-    { hiragana: 'ま', pronunciation: 'ma', options: ['ma', 'mi', 'mu', 'me', 'mo'] },
-    { hiragana: 'み', pronunciation: 'mi', options: ['mi', 'mu', 'me', 'mo', 'ma'] },
-    { hiragana: 'む', pronunciation: 'mu', options: ['mu', 'me', 'mo', 'ma', 'mi'] },
-    { hiragana: 'め', pronunciation: 'me', options: ['me', 'mo', 'ma', 'mi', 'mu'] },
-    { hiragana: 'も', pronunciation: 'mo', options: ['mo', 'ma', 'mi', 'mu', 'me'] },
-    { hiragana: 'や', pronunciation: 'ya', options: ['ya', 'yu', 'yo'] },
-    { hiragana: 'ゆ', pronunciation: 'yu', options: ['yu', 'yo', 'ya'] },
-    { hiragana: 'よ', pronunciation: 'yo', options: ['yo', 'ya', 'yu'] },
-    { hiragana: 'ら', pronunciation: 'ra', options: ['ra', 'ri', 'ru', 're', 'ro'] },
-    { hiragana: 'り', pronunciation: 'ri', options: ['ri', 'ru', 're', 'ro', 'ra'] },
-    { hiragana: 'る', pronunciation: 'ru', options: ['ru', 're', 'ro', 'ra', 'ri'] },
-    { hiragana: 'れ', pronunciation: 're', options: ['re', 'ro', 'ra', 'ri', 'ru'] },
-    { hiragana: 'ろ', pronunciation: 'ro', options: ['ro', 'ra', 'ri', 'ru', 're'] },
-    { hiragana: 'わ', pronunciation: 'wa', options: ['wa', 'wo', 'n'] },
-    { hiragana: 'を', pronunciation: 'wo', options: ['wo', 'wa', 'n'] },
-    { hiragana: 'ん', pronunciation: 'n', options: ['ne', 'wo', 'n'] },
-];
-
-const shuffleArray = (array: QuizDataItem[]) => {
+const shuffleArray = (array: typeof hiraganaData) => {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [array[i], array[j]] = [array[j], array[i]];
@@ -83,7 +29,7 @@ const shuffleArray = (array: QuizDataItem[]) => {
     return array;
 };
 
-const shuffledQuizData = shuffleArray(quizData);
+const shuffledQuizData = shuffleArray(hiraganaData);
 const selectedQuizQuestions = shuffledQuizData.slice(0, 10);
 
 function HiraganaQuiz() {
@@ -102,7 +48,7 @@ function HiraganaQuiz() {
 
     // check quiz answers, T for correct, F for wrong
     const checkAnswer = () => {
-        const correctAnswer = quizData[currentQuestion].pronunciation;
+        const correctAnswer = hiraganaData[currentQuestion].pronunciation;
         return selectedOption === correctAnswer;
     };
 
