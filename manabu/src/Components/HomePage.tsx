@@ -19,7 +19,7 @@ const theme = createTheme({
   });
 
 function HomePage() {
-    const { selectedOption, setSelectedOption } = useSelectedOption();
+    const { setSelectedOption } = useSelectedOption();
 
     return (
         <>
