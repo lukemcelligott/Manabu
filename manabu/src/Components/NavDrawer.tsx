@@ -8,6 +8,7 @@ import { Button, Hidden, Menu, MenuItem, Select, createTheme } from '@mui/materi
 import SchoolIcon from '@mui/icons-material/School';
 import QuizIcon from '@mui/icons-material/Quiz';
 import EditIcon from '@mui/icons-material/Edit';
+import MenuIcon from '@mui/icons-material/Menu';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -16,7 +17,7 @@ import { useSelectedOption } from './AlphaContext';
 import './Styles/NavDrawer.css';
 import { ThemeProvider } from '@emotion/react';
 //import { useMediaQuery } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
+
 import React from 'react';
 
 const theme = createTheme({
