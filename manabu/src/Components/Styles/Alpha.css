@@ -28,6 +28,10 @@
     height: 95%;
 }
 
+.char-card:hover {
+    transform: scale(1.03);
+}
+
 .clicked {
     padding: 20px;
     border: 2px solid #EEEEEE;
