@@ -53,6 +53,27 @@ function HiraganaPractice() {
             // Second card clicked, check for a match
             const isFirstCardHiragana = selectedCardId <= hiraganaData.length;
             const isSecondCardHiragana = id <= hiraganaData.length;
+
+            // Check if both cards are hiragana symbols or both pronunciations
+            const areBothHiragana = isFirstCardHiragana && isSecondCardHiragana;
+            const areBothPronunciations = !isFirstCardHiragana && !isSecondCardHiragana;
+
+            if (areBothHiragana || areBothPronunciations) {
+                // Reset selected cards
+                const clickedElements = document.querySelectorAll('.clicked');
+                    // remove click and shake
+                    clickedElements.forEach(element => {
+                        if (cardElement) {
+                            element.classList.add('shake');
+                            setTimeout(() => {
+                                element.classList.remove('shake');
+                            }, 500);
+                        }
+                        element.classList.remove('clicked');
+                    });
+                setSelectedCardId(null);
+                return;
+            }
     
             if (isFirstCardHiragana !== isSecondCardHiragana) { 
                 // Check if the two cards have the same hiragana/pronunciation pair
@@ -65,7 +86,11 @@ function HiraganaPractice() {
                     clickedElements.forEach(element => {
                         element.classList.add('match');
                         element.classList.remove('clicked');
-                        console.log("hit");
+                        document.querySelectorAll('.char-card.match').forEach(card => {
+                            card.addEventListener('animationend', () => {
+                                card.remove(); // Remove the card element from the DOM when the animation ends
+                            });
+                        });
                     });
                 } else { // no match
                     // No match, reset selected card

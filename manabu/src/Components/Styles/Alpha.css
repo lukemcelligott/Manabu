@@ -1,3 +1,12 @@
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
 @keyframes shake {
     0% {
       transform: translateX(0);
@@ -20,6 +29,10 @@
     animation: shake 0.5s ease-in-out;
 }
 
+.card-grid {
+    margin: 1%;
+}
+
 .card-text {
     text-align: center;
 }
@@ -29,7 +42,7 @@
 }
 
 .char-card:hover {
-    transform: scale(1.03);
+    transform: scale(0.98);
 }
 
 .clicked {
@@ -48,12 +61,7 @@
     padding: 20px;
     border: 2px solid #008000;
     box-sizing: border-box;
-}
-
-.char-card.match {
-    padding: 20px;
-    border: 2px solid #008000;
-    box-sizing: border-box;
+    animation: fadeOut 1s ease forwards;
 }
 
 .content-color {
